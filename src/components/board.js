@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-export const fillBoard = (size) => {
-  const board = [];
-  for (let i = 0; i < size; i++) {
-    const newRow = [];
-    for (let j = 0; j < size; j++) {
-      newRow.push('');
-=======
-export const fillBoard = () => {
+export const fillBoard = size => {
     const board = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < size; i++) {
         const newRow = [];
-        for (let j = 0; j < 50; j++) {
+        for (let j = 0; j < size; j++) {
             newRow.push('');
         }
         board.push(newRow);
->>>>>>> d46c85270363379041d54848f70b2b4bb01660e7
     }
     return board;
 };

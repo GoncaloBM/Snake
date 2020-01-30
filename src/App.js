@@ -3,6 +3,7 @@ import "./App.css";
 import "./style.css";
 import { fillBoard } from "./components/board";
 import { snakeMove } from "./components/snake";
+import { cobraAndar } from "./components/cobraAndar";
 
 function Cell({ isSnake, isApple }) {
   return (
@@ -34,13 +35,50 @@ function Board(props) {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { board: fillBoard(50) };
+    this.state = { board: fillBoard(25), direction: "down" };
     this.moveSnake();
   }
+
+  escFunction = event => {
+    if (event.keyCode === 40) {
+      this.setState({
+        direction: "down"
+      });
+    } else if (event.keyCode === 38) {
+      this.setState({
+        direction: "up"
+      });
+    } else if (event.keyCode === 37) {
+      this.setState({
+        direction: "left"
+      });
+    } else if (event.keyCode === 39) {
+      this.setState({
+        direction: "right"
+      });
+    }
+  };
 
   moveSnake = () => {
     this.setState(snakeMove(this.state));
   };
+
+  cobraAndou = () => {
+    this.setState({
+      board: cobraAndar(this.state.board, this.state.direction)
+    });
+  };
+
+  componentDidMount() {
+    setInterval(() => {
+      this.cobraAndou();
+    }, 100);
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
 
   render() {
     return (
