@@ -19,5 +19,9 @@ body {
 }
 
 .snake {
-    background-color: black;
+    background-color: green;
+}
+
+.apple {
+    background-color: red;
 }

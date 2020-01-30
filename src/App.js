@@ -4,6 +4,7 @@ import "./style.css";
 import { fillBoard } from "./components/board";
 import { snakeMove } from "./components/snake";
 import { cobraAndar } from "./components/cobraAndar";
+import { randomMaca } from "./components/maca";
 
 function Cell({ isSnake, isApple }) {
   return (
@@ -17,7 +18,12 @@ function Cell({ isSnake, isApple }) {
 function Row(props) {
   const arrayToReturn = [];
   for (let index = 0; index < props.rowData.length; index++) {
-    arrayToReturn.push(<Cell isSnake={props.rowData[index] === 1}></Cell>);
+    arrayToReturn.push(
+      <Cell
+        isSnake={props.rowData[index] === 1}
+        isApple={props.rowData[index] === 2}
+      ></Cell>
+    );
   }
   return <div className="row">{arrayToReturn}</div>;
 }
@@ -65,7 +71,11 @@ class App extends Component {
 
   cobraAndou = () => {
     this.setState({
-      board: cobraAndar(this.state.board, this.state.direction)
+      board: cobraAndar(this.state.board, this.state.direction),
+      vitoria:
+        cobraAndar(this.state.board, this.state.direction) === false
+          ? true
+          : false
     });
   };
 
@@ -74,6 +84,9 @@ class App extends Component {
       this.cobraAndou();
     }, 100);
     document.addEventListener("keydown", this.escFunction, false);
+    setTimeout(() => {
+      this.setState({ board: randomMaca(this.state.board) });
+    }, 1000);
   }
 
   componentWillUnmount() {
