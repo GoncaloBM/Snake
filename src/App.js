@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import './style.css'
+import { fillBoard } from "./components/board";
 
-function App() {
+function Cell() {
+  return <div className="cell" style={{ width: "30px", height: "30px" }}></div>;
+}
+
+function Row(props) {
+  const arrayToReturn = [];
+  for (let index = 0; index < props.rowData.length; index++) {
+    arrayToReturn.push(<Cell></Cell>);
+  }
+  return <div className='row'>{arrayToReturn}</div>;
+}
+
+function Board(props) {
+  console.log(props.board)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="board">
+      {props.board.map((row, index) => {
+        return <Row key={index} rowData={row}></Row>;
+      })}
     </div>
   );
+}
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { board: fillBoard() };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Board board={this.state.board}/>
+      </div>
+    );
+  }
 }
 
 export default App;
